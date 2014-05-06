@@ -51,13 +51,20 @@ public class WDPVertexId implements Comparable {
         for (int i = 0; i < bids.length; i++) {
             for (int j = 0; j < bids[i].length; j++) {
                 for (int k = 0; k <other.bids.length ; k++) {
-                    if(Arrays.asList(other.bids[k]).contains(bids[i][j])){
+                    if(Contains(other.bids[k],bids[i][j])){
                         return false;
                     }
                 }
             }
         }
         return true;
+    }
+    private boolean Contains(long[]goods, long good){
+        for (int i = 0; i < goods.length; i++) {
+            if(goods[i]==good)
+                return true;
+        }
+        return false;
     }
     public WDPVertexId Concat(WDPVertexId other){
         long[][]temp=new long[bids.length+other.bids.length][];
@@ -80,7 +87,7 @@ public class WDPVertexId implements Comparable {
 
         if(this.bids.length!=other.bids.length)return false;
         for (int i = 0; i <this.bids.length ; i++) {
-            if(this.bids[i].length!=other.bids.length)return false;
+            if(this.bids[i].length!=other.bids[i].length)return false;
             for (int j = 0; j < this.bids[i].length; j++) {
                 if(this.bids[i][j]!=other.bids[i][j])return false;
             }

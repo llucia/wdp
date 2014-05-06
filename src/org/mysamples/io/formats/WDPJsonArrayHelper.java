@@ -29,14 +29,15 @@ public class WDPJsonArrayHelper {
     public Iterable<Edge<WDPVertexIdWritable, FloatWritable>> getEdges(
             JSONArray jsonVertex) throws JSONException, IOException {
 
+        WDPVertexIdWritable sourceVertex=getId(jsonVertex);
         JSONArray jsonEdgeArray = jsonVertex.getJSONArray(2);
-
         List<Edge<WDPVertexIdWritable, FloatWritable>> edges =
                 Lists.newArrayListWithCapacity(jsonEdgeArray.length());
         for (int i = 0; i < jsonEdgeArray.length(); ++i) {
             JSONArray jsonEdge = jsonEdgeArray.getJSONArray(i);
-            edges.add(EdgeFactory.create(new WDPVertexIdWritable(jsonEdge),
-                    new FloatWritable(0)));
+            WDPVertexIdWritable wdpVertexIdWritable = new WDPVertexIdWritable(jsonEdge);
+            if (sourceVertex.get().IsNotConflictingWith(wdpVertexIdWritable.get()))
+                edges.add(EdgeFactory.create(wdpVertexIdWritable, new FloatWritable(0)));
         }
         return edges;
     }

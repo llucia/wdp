@@ -128,14 +128,14 @@ public class DynamicWDPComputation extends BasicComputation<
         log_info("removeVertexRequest "+vertex);
 
     }
-    /*private void SendMessageToNonConflictingEdges(Vertex<WDPVertexIdWritable, DoubleWritable, FloatWritable> vertex, Double vertexValue)
+    private void SendMessageToNonConflictingEdges(Vertex<WDPVertexIdWritable, DoubleWritable, FloatWritable> vertex, Double vertexValue)
     {
         WDPMessageWritable msg= new WDPMessageWritable(new WDPMessage(vertexValue,vertex.getId().get()));
         sendMessageToAllEdges(vertex,msg);
         log_info("Messages sent to all Edges "+msg);
 
-    }*/
-    private void SendMessageToNonConflictingEdges(Vertex<WDPVertexIdWritable, DoubleWritable, FloatWritable> vertex, Double vertexValue)
+    }
+    /*private void SendMessageToNonConflictingEdges(Vertex<WDPVertexIdWritable, DoubleWritable, FloatWritable> vertex, Double vertexValue)
     {
         WDPMessageWritable msg= new WDPMessageWritable(new WDPMessage(vertexValue,vertex.getId().get()));
         for(Edge<WDPVertexIdWritable,FloatWritable> edge: vertex.getEdges()){
@@ -144,5 +144,5 @@ public class DynamicWDPComputation extends BasicComputation<
                 log_info("Message "+msg+" sent to Vertex "+edge.getTargetVertexId());
             }
         }
-    }
+    }*/
 }
