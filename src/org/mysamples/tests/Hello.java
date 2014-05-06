@@ -21,6 +21,7 @@ public class Hello {
         WDPJsonArrayHelper jsonHelper=new WDPJsonArrayHelper();
         //TestLeafNode(jsonHelper);
         //TestRootNode(jsonHelper);
+        TestNode(jsonHelper);
         String s1="Hello";
         String s2="Hello";
        boolean equals= s1.hashCode()==s2.hashCode();
@@ -72,6 +73,33 @@ public class Hello {
             count++;
         }
         testEdges = count == 1;
+
+        if (testVertexId && testVertexValue && testEdges)
+            System.out.println("test root node successfully passed!");
+        else
+            System.out.println("test root node failed!");
+
+    }
+
+    private static void TestNode(WDPJsonArrayHelper jsonHelper) throws JSONException, IOException {
+
+        String line = "[[1,2],40,[3,4]]";
+        JSONArray jsonLine = new JSONArray(line);
+
+        WDPVertexIdWritable wdpVertexIdWritable = jsonHelper.getId(jsonLine);
+        DoubleWritable vertexValueWritable = jsonHelper.getValue(jsonLine);
+        Iterable<Edge<WDPVertexIdWritable, FloatWritable>> edges = jsonHelper.getEdges(jsonLine);
+
+        WDPVertexId wdpVertexId = wdpVertexIdWritable.get();
+        WDPVertexId otherWdpVertexId = new WDPVertexId(new long[][]{{4}});
+        boolean testVertexId = wdpVertexId.equals(otherWdpVertexId);
+        boolean testVertexValue = vertexValueWritable.get() == 40;
+        int count = 0;
+        boolean testEdges;
+        for (Edge<WDPVertexIdWritable, FloatWritable> edge : edges) {
+            count++;
+        }
+        testEdges = count == 0;
 
         if (testVertexId && testVertexValue && testEdges)
             System.out.println("test root node successfully passed!");
