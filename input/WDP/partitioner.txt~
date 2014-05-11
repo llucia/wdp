@@ -1,0 +1,1 @@
+-Dgiraph.graphPartitionerFactoryClass=org.apache.giraph.partition.SimpleLongRangePartitionerFactory
