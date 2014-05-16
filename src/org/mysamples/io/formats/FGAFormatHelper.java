@@ -9,6 +9,7 @@ import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.Text;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.mysamples.HelloWorldComputation;
 import org.mysamples.io.types.WDPVertexId;
 import org.mysamples.io.types.WDPVertexIdWritable;
 

@@ -1,10 +1,14 @@
 package org.mysamples;
 
 import org.apache.giraph.Algorithm;
+import org.apache.giraph.aggregators.DoubleMaxAggregator;
+import org.apache.giraph.aggregators.DoubleMinAggregator;
+import org.apache.giraph.aggregators.LongSumAggregator;
 import org.apache.giraph.graph.BasicComputation;
 import org.apache.giraph.conf.LongConfOption;
 import org.apache.giraph.edge.Edge;
 import org.apache.giraph.graph.Vertex;
+import org.apache.giraph.master.DefaultMasterCompute;
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.FloatWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -42,17 +46,39 @@ public class HelloWorldComputation extends BasicComputation<
         }
     }
 
+    /** Max aggregator name */
+    private static String MAX_AGG = "max";
+
+
     @Override
     public void compute(
             Vertex<LongWritable, DoubleWritable, FloatWritable> vertex,
             Iterable<DoubleWritable> messages) throws IOException {
         double vertexValue = vertex.getValue().get();
+        aggregate(MAX_AGG, new DoubleWritable(vertexValue));
 
         log_info("Compute function in VertexId: "+ vertex.getId().get()+" VertexValue: "+vertexValue);
         if (getSuperstep() == 0) {
             sendMessageToAllEdges(vertex,  new DoubleWritable(vertexValue));
         }
+      log_info("liannet aggregator "+getAggregatedValue(MAX_AGG));
+        System.out.print("liannet aggregator "+getAggregatedValue(MAX_AGG));
+
         vertex.voteToHalt();
+    }
+
+
+    /**
+     * Master compute associated with {@link AggregatorMasterCompute}.
+     * It registers required aggregators.
+     */
+    public static class AggregatorMasterCompute extends
+            DefaultMasterCompute {
+        @Override
+        public void initialize() throws InstantiationException,
+                IllegalAccessException {
+            registerPersistentAggregator(MAX_AGG, DoubleMaxAggregator.class);
+        }
     }
 }
 
