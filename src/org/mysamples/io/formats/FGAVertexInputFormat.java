@@ -84,7 +84,7 @@ public class FGAVertexInputFormat extends
             for (int i = 0; i < jsonEdgeArray.length(); ++i) {
                 JSONArray jsonEdge = jsonEdgeArray.getJSONArray(i);
                 WDPVertexIdWritable wdpVertexIdWritable = GetVertexFromJsonArray(jsonEdge);
-                if (sourceVertex.get().IsNotConflictingWith(wdpVertexIdWritable.get()))
+                if (IsNotConflicting(sourceVertex,wdpVertexIdWritable))
                     edges.add(EdgeFactory.create(wdpVertexIdWritable, new FloatWritable(0)));
             }
             return edges;
@@ -114,6 +114,19 @@ public class FGAVertexInputFormat extends
         private WDPVertexIdWritable GetVertexFromJsonArray(JSONArray jsonArray) throws JSONException {
             return new WDPVertexIdWritable(new WDPVertexId(GetArrayOfBids(jsonArray)));
         }
+    }
+
+    private boolean IsNotConflicting(WDPVertexIdWritable sourceVertex, WDPVertexIdWritable wdpVertexIdWritable) {
+       // sourceVertex.get().IsNotConflictingWith(wdpVertexIdWritable.get())
+        long[][]source=sourceVertex.get().getBids();
+        long[][]target=wdpVertexIdWritable.get().getBids();
+        long[][]realTarget=new long[target.length-source.length][];
+        for (int i =0; i <realTarget.length ; i++) {
+            realTarget[i]=target[ source.length+i];
+        }
+        WDPVertexId wdpRealTarget=new WDPVertexId(realTarget);
+        boolean notConflicting=sourceVertex.get().IsNotConflictingWith(wdpRealTarget);
+        return notConflicting;
     }
 }
 

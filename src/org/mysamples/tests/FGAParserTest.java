@@ -82,7 +82,7 @@ public class FGAParserTest {
 
     private static void TestRootNode(FGAFormatHelper jsonHelper) throws JSONException, IOException {
 
-        String line = "[[[4],[5,6],[7,8,9]],40,[[[1,2,3],[13,12]],[[11]]]]";
+        String line = "[[[4],[5,6]],40,[[[4],[5,6]],[[11]]]]";
         JSONArray jsonLine = new JSONArray(line);
 
         WDPVertexIdWritable wdpVertexIdWritable = jsonHelper.getId(jsonLine);
@@ -90,7 +90,7 @@ public class FGAParserTest {
         Iterable<Edge<WDPVertexIdWritable, FloatWritable>> edges = jsonHelper.getEdges(jsonLine);
 
         WDPVertexId wdpVertexId = wdpVertexIdWritable.get();
-        WDPVertexId otherWdpVertexId = new WDPVertexId(new long[][]{{4},{5,6},{7,8,9}});
+        WDPVertexId otherWdpVertexId = new WDPVertexId(new long[][]{{4},{5,6}});
         boolean testVertexId = wdpVertexId.equals(otherWdpVertexId);
         boolean testVertexValue = vertexValueWritable.get() == 40;
         int count = 0;
@@ -98,7 +98,7 @@ public class FGAParserTest {
         for (Edge<WDPVertexIdWritable, FloatWritable> edge : edges) {
             count++;
         }
-        testEdges = count == 2;
+        testEdges = count == 1;
 
         if (testVertexId && testVertexValue && testEdges)
             System.out.println("test root node successfully passed!");
@@ -109,7 +109,8 @@ public class FGAParserTest {
 
     private static void TestConflictiveNode(FGAFormatHelper jsonHelper) throws JSONException, IOException {
 
-        String line = "[[[4],[5,6],[7,8,9]],40,[[[1,2,3],[8,12]],[[11]]]]";
+        String line = "[[[1,2,3],[13,12]],40,[[[1,2,3],[13,12],[11]],[[1,2,3],[13,12],[11],[5,2,4]]]]";
+
 
         JSONArray jsonLine = new JSONArray(line);
 
@@ -118,7 +119,7 @@ public class FGAParserTest {
         Iterable<Edge<WDPVertexIdWritable, FloatWritable>> edges = jsonHelper.getEdges(jsonLine);
 
         WDPVertexId wdpVertexId = wdpVertexIdWritable.get();
-        WDPVertexId otherWdpVertexId = new WDPVertexId(new long[][]{{4},{5,6},{7,8,9}});
+        WDPVertexId otherWdpVertexId = new WDPVertexId(new long[][]{{1,2,3},{13,12}});
         boolean testVertexId = wdpVertexId.equals(otherWdpVertexId);
         boolean testVertexValue = vertexValueWritable.get() == 40;
         int count = 0;
