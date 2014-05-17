@@ -77,7 +77,6 @@ public class AggregateFGAComputation extends BasicComputation<
         sendMessageToAllEdges(vertex, new DoubleWritable(revenue));
         log_info("Vertex " + vertex.getId() + " sending message to all edges Revenue = " + revenue);
         vertex.voteToHalt();
-        System.out.print(Math.max(((DoubleWritable)getAggregatedValue(MAX_AGG)).get(),vertex.getValue().get())+"; ");
 
     }
 
@@ -94,6 +93,11 @@ public class AggregateFGAComputation extends BasicComputation<
         public void initialize() throws InstantiationException,
                 IllegalAccessException {
             registerPersistentAggregator(MAX_AGG, DoubleMaxAggregator.class);
+        }
+        @Override
+        public void  compute(){
+            //if(this.isHalted())
+                System.out.println(getAggregatedValue(MAX_AGG));
         }
     }
 }

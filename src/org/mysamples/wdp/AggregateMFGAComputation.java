@@ -83,7 +83,6 @@ public class AggregateMFGAComputation extends BasicComputation<
             sendMessageToAllEdges(vertex, new DoubleWritable(revenue));
             log_info("Vertex " + vertex.getId() + " sending message to all edges Revenue = " + revenue);
         }
-        System.out.print(Math.max(((DoubleWritable)getAggregatedValue(MAX_AGG)).get(),vertex.getValue().get())+"; ");
 
     }
 
@@ -101,5 +100,12 @@ public class AggregateMFGAComputation extends BasicComputation<
                 IllegalAccessException {
             registerPersistentAggregator(MAX_AGG, DoubleMaxAggregator.class);
         }
+
+        @Override
+        public void  compute(){
+                //if(this.isHalted())
+                    System.out.println(getAggregatedValue(MAX_AGG));
+        }
     }
+
 }

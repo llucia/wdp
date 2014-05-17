@@ -89,7 +89,6 @@ public class AggregateDynamicWDPComputation extends BasicComputation<
 
             }
         }
-        System.out.print(getAggregatedValue(MAX_AGG)+"; ");
 
     }
 
@@ -166,6 +165,11 @@ public class AggregateDynamicWDPComputation extends BasicComputation<
         public void initialize() throws InstantiationException,
                 IllegalAccessException {
             registerPersistentAggregator(MAX_AGG, DoubleMaxAggregator.class);
+        }
+        @Override
+        public void  compute(){
+           // if(this.isHalted())
+                System.out.println(getAggregatedValue(MAX_AGG));
         }
     }
 }
