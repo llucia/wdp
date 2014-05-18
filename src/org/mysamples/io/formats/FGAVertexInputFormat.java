@@ -76,6 +76,7 @@ public class FGAVertexInputFormat extends
         @Override
         protected Iterable<Edge<WDPVertexIdWritable, FloatWritable>> getEdges(
                 JSONArray jsonVertex) throws JSONException, IOException {
+            System.out.println("Calling getEdges");
 
             WDPVertexIdWritable sourceVertex=getId(jsonVertex);
             JSONArray jsonEdgeArray = jsonVertex.getJSONArray(2);

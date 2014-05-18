@@ -116,17 +116,17 @@ public class WDPVertexId implements Comparable {
     }
 
     private String print(long[][]bids){
-        String result="[";
+        StringBuilder sb =new StringBuilder("[");
         for (int i = 0; i < bids.length; i++) {
-            result+="[";
+            sb.append("[");
             for (int j = 0; j < bids[i].length; j++) {
-                if(j>0)result+=",";
-                result+=bids[i][j];
+                if(j>0)sb.append(",");
+                sb.append(bids[i][j]);
             }
-            result+="]";
+            sb.append("]");
         }
-        result+="]";
-        return result;
+        sb.append("]");
+        return sb.toString();
     }
     private int compareBids(long[]a, long[]b){
         int min=Math.min(a.length, b.length);
