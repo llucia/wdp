@@ -19,7 +19,12 @@ public class WDPMessage {
     public WDPVertexId getVertexId(){
         return vertexId;
     }
-
+    public void addValue(double valueToAdd) {
+     this.value += valueToAdd;
+    }
+    public void setVertexId(WDPVertexId vertexId){
+        this.vertexId=vertexId;
+    }
     /** Returns true iff they have the same amount of bids and the bids in the same position are equals */
     public boolean equals(Object o) {
         if (!(o instanceof WDPMessage))
