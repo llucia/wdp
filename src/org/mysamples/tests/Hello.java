@@ -18,13 +18,20 @@ import java.io.IOException;
 public class Hello {
     public static void main(String args[]) throws JSONException, IOException {
         System.out.println("hello");
-        WDPJsonArrayHelper jsonHelper=new WDPJsonArrayHelper();
+       // WDPJsonArrayHelper jsonHelper=new WDPJsonArrayHelper();
         //TestLeafNode(jsonHelper);
         //TestRootNode(jsonHelper);
-        TestConflictiveNode(jsonHelper);
-        String s1="Hello";
-        String s2="Hello";
-       boolean equals= s1.hashCode()==s2.hashCode();
+      //  TestConflictiveNode(jsonHelper);
+        long g1=1;
+        long g2=2;
+
+        long x=8;
+        long y=1;
+
+       Long check_func= ((x|y)^x)^y;
+        System.out.println (check_func==0);
+        System.out.println (Long.toBinaryString(x));
+        System.out.println (Long.toBinaryString(y));
     }
 
     private static void TestLeafNode(WDPJsonArrayHelper jsonHelper) throws JSONException, IOException {
