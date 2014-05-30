@@ -54,8 +54,9 @@ public class DMAEncodedVertexComputation extends BasicComputation<
     public void compute(Vertex<EncodedGoodsWritable, EncodedMessageWritable, NullWritable> vertex,
                         Iterable<EncodedMessageWritable> messages) throws IOException {
         log_info(vertex);
+        EncodedMessageWritable vertexValue=new EncodedMessageWritable(new EncodedMessage(vertex.getValue().get().getValue(),vertex.getId().get()));
         if (getSuperstep() == 0) {
-            sendMessageToAllEdges(vertex, vertex.getValue());
+            sendMessageToAllEdges(vertex, vertexValue);
         }
         else {
             if (getSuperstep() == 1) {
@@ -66,17 +67,17 @@ public class DMAEncodedVertexComputation extends BasicComputation<
                 }
                 if(msgNum==0)
                 {
-                    sendMessageToNonConflictingEdges(vertex, vertex.getValue());
+                    sendMessageToNonConflictingEdges(vertex, vertexValue);
                     RemoveVertex(vertex);
                 }
                 else
                     vertex.voteToHalt();
 
             } else {
-                EncodedMessageWritable maxMsg=vertex.getValue();
+                EncodedMessageWritable maxMsg=vertexValue;
                 EncodedMessageWritable temp;
                 for (EncodedMessageWritable message : messages) {
-                        temp=new EncodedMessageWritable(new EncodedMessage(vertex.getValue().get().getValue()+message.get().getValue(),message.get().getEncodedGoods().Concat(vertex.getValue().get().getEncodedGoods())));
+                        temp=new EncodedMessageWritable(new EncodedMessage(vertex.getValue().get().getValue()+message.get().getValue(),message.get().getEncodedGoods().Concat(vertexValue.get().getEncodedGoods())));
                         if (vertex.getNumEdges() == 0) {
                             if (maxMsg.get().getValue() <temp.get().getValue())
                                 maxMsg = temp;

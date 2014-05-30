@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class EncodedGoods implements Comparable {
     private long[] goods;
 
-    public EncodedGoods(){}
+    public EncodedGoods(){goods=new long[0];}
 
     public EncodedGoods(JSONArray jsonVertexId) throws JSONException {
 
@@ -42,7 +42,7 @@ public class EncodedGoods implements Comparable {
     public boolean IsNotConflictingWith(EncodedGoods other){
         if(goods!=null)
         for (int i = 0; i < this.goods.length; i++) {
-           if( (((this.goods[i]&other.goods[i])^other.goods[i])^this.goods[i])!=0)
+           if( (((this.goods[i]|other.goods[i])^other.goods[i])^this.goods[i])!=0)
                return false;
         }
         return true;
@@ -51,7 +51,7 @@ public class EncodedGoods implements Comparable {
        if(goods==null)return new EncodedGoods();
         long[]temp=new long[goods.length];
        for (int i = 0; i < goods.length; i++) {
-           temp[i]=goods[i]& other.goods[i];
+           temp[i]=goods[i]| other.goods[i];
        };
        return new EncodedGoods(temp);
     }
