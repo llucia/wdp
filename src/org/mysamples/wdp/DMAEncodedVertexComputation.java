@@ -133,7 +133,10 @@ public class DMAEncodedVertexComputation extends BasicComputation<
         }
         @Override
         public void  compute(){
-                System.out.println(getAggregatedValue(MAX_AGG));
+            System.out.println(" Superstep: "+getSuperstep());
+            System.out.println("Edges: "+ getTotalNumEdges());
+            System.out.println("Vertices: "+getTotalNumVertices());
+            System.out.println("MaxAGG: "+getAggregatedValue(MAX_AGG));
         }
     }
 }

@@ -47,6 +47,8 @@ public class EncodedGoods implements Comparable {
         }
         return true;
     }
+
+
    public EncodedGoods Concat(EncodedGoods other){
        if(goods==null)return new EncodedGoods();
         long[]temp=new long[goods.length];
@@ -82,4 +84,5 @@ public class EncodedGoods implements Comparable {
         EncodedGoods other = (EncodedGoods)o;
         return goods[1]<other.goods[1]?-1:1;
     }
+
 }

@@ -11,8 +11,10 @@ import java.io.IOException;
 /**
  * Created by user on 4/27/14.
  */
-public class EncodedGoodsWritable implements WritableComparable {
+public class EncodedGoodsWritable implements IWDPVertexId {
+
     private EncodedGoods encodedGoods;
+
     public EncodedGoodsWritable(){}
     public EncodedGoodsWritable(JSONArray jsonVertexId) throws JSONException{
 
@@ -24,10 +26,9 @@ public class EncodedGoodsWritable implements WritableComparable {
     public EncodedGoodsWritable(EncodedGoods encodedGoods){
         this.encodedGoods=encodedGoods;
     }
-    /** Set the value of this LongWritable. */
-    public void set(EncodedGoods value) { encodedGoods = value; }
 
-    /** Return the value of this LongWritable. */
+
+    public void set(EncodedGoods value) { encodedGoods = value; }
     public EncodedGoods get() { return encodedGoods; }
 
     @Override
@@ -35,6 +36,7 @@ public class EncodedGoodsWritable implements WritableComparable {
         EncodedGoods thatValue = ((EncodedGoodsWritable)o).encodedGoods;
         return this.encodedGoods.compareTo(thatValue);
     }
+
     public void readFields(DataInput in) throws IOException {
         // construct matrix
         long[]goods = new long[in.readInt()];
@@ -43,7 +45,6 @@ public class EncodedGoodsWritable implements WritableComparable {
         }
         encodedGoods=new EncodedGoods(goods);
     }
-
     public void write(DataOutput out) throws IOException {
         long[]goods=encodedGoods.getGoods();
         out.writeInt(goods.length);                 // write values
@@ -52,7 +53,8 @@ public class EncodedGoodsWritable implements WritableComparable {
             }
     }
 
-    /** Returns true iff they have the same amount of bids and the bids in the same position are equals */
+
+
     public boolean equals(Object o) {
         if (!(o instanceof EncodedGoodsWritable))
             return false;
