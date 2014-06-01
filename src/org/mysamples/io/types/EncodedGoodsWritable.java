@@ -33,8 +33,7 @@ public class EncodedGoodsWritable implements IWDPVertexId {
 
     @Override
     public int compareTo(Object o) {
-        EncodedGoods thatValue = ((EncodedGoodsWritable)o).encodedGoods;
-        return this.encodedGoods.compareTo(thatValue);
+        return this.encodedGoods.compareTo(((EncodedGoodsWritable)o).encodedGoods);
     }
 
     public void readFields(DataInput in) throws IOException {
@@ -58,8 +57,7 @@ public class EncodedGoodsWritable implements IWDPVertexId {
     public boolean equals(Object o) {
         if (!(o instanceof EncodedGoodsWritable))
             return false;
-        EncodedGoodsWritable other = (EncodedGoodsWritable)o;
-        return encodedGoods.equals(other.encodedGoods);
+        return encodedGoods.equals(((EncodedGoodsWritable)o).encodedGoods);
     }
     public int hashCode() {
         return encodedGoods.hashCode();

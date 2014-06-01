@@ -43,9 +43,9 @@ public class EncodedVertexValueWithBidsWritable implements IWDPVertexValue {
     /*************END Writable Members*****************/
 
     public boolean equals(Object o) {
-        if (!(o instanceof EncodedVertexValueWithBids))
+        if (!(o instanceof EncodedVertexValueWithBidsWritable))
             return false;
-        return encodedValue.equals((EncodedVertexValueWithBids)o);
+        return encodedValue.equals(((EncodedVertexValueWithBidsWritable)o).encodedValue);
     }
     public int hashCode() {
         return encodedValue.hashCode();

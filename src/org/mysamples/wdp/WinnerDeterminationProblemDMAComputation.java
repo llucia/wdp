@@ -53,7 +53,7 @@ public class WinnerDeterminationProblemDMAComputation<WDPVertexId extends IWDPVe
     @Override
     public void compute(Vertex<WDPVertexId,WDPVertexValue, NullWritable> vertex,
                         Iterable<WDPMessage> messages) throws IOException {
-        log_info(vertex);
+     //   log_info(vertex);
         WDPMessage initialMsg=(WDPMessage)vertex.getValue().ConvertToMessage(vertex.getId());
         if (getSuperstep() == 0) {
             sendMessageToAllEdges(vertex, initialMsg);
@@ -104,7 +104,7 @@ public class WinnerDeterminationProblemDMAComputation<WDPVertexId extends IWDPVe
 
     private void RemoveVertex(Vertex<WDPVertexId, WDPVertexValue, NullWritable> vertex) throws IOException {
         removeVertexRequest(vertex.getId());
-        log_info("removeVertexRequest "+vertex);
+       // log_info("removeVertexRequest "+vertex);
 
     }
 
