@@ -69,9 +69,6 @@ public class DMAEncodedVertexInputFormat extends
             );
         }
 
-        /*
-        * Only creates non conflicting edges
-        */
         @Override
         protected Iterable<Edge<EncodedGoodsWritable, NullWritable>> getEdges(
                 JSONArray jsonVertex) throws JSONException, IOException {

@@ -16,7 +16,7 @@ public class EncodedGoods implements Comparable {
     public EncodedGoods(JSONArray jsonVertexId) throws JSONException {
 
         goods = new long[jsonVertexId.length()];
-        for (int i = 0; i < goods.length; i++) {
+       for (int i = 0; i < goods.length; i++) {
             goods[i] = jsonVertexId.getLong(i);
         }
     }

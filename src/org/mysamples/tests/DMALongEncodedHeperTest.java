@@ -7,8 +7,7 @@ import org.apache.hadoop.io.NullWritable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.mysamples.io.formats.DMALongEncodedFormatHelper;
-import org.mysamples.io.formats.FGAFormatHelper;
-import org.mysamples.io.formats.WDPJsonArrayHelper;
+
 import org.mysamples.io.types.*;
 
 import java.io.IOException;
@@ -53,32 +52,6 @@ public class DMALongEncodedHeperTest {
 
     }
 
-    private static void TestLeafNode1(FGAFormatHelper jsonHelper) throws JSONException, IOException {
-
-        String line = "[[[1,2],[3,4]],40,[]]";
-        JSONArray jsonLine = new JSONArray(line);
-
-        WDPVertexIdWritable wdpVertexIdWritable = jsonHelper.getId(jsonLine);
-        DoubleWritable vertexValueWritable = jsonHelper.getValue(jsonLine);
-        Iterable<Edge<WDPVertexIdWritable, FloatWritable>> edges = jsonHelper.getEdges(jsonLine);
-
-        WDPVertexId wdpVertexId = wdpVertexIdWritable.get();
-        WDPVertexId otherWdpVertexId = new WDPVertexId(new long[][]{{1,2},{3,4}});
-        boolean testVertexId = wdpVertexId.equals(otherWdpVertexId);
-        boolean testVertexValue = vertexValueWritable.get() == 40;
-        int count = 0;
-        boolean testEdges;
-        for (Edge<WDPVertexIdWritable, FloatWritable> edge : edges) {
-            count++;
-        }
-        testEdges = count == 0;
-
-        if (testVertexId && testVertexValue && testEdges)
-            System.out.println("test root node successfully passed!");
-        else
-            System.out.println("test root node failed!");
-
-    }
 
     private static void TestRootNode(DMALongEncodedFormatHelper jsonHelper) throws JSONException, IOException {
 
@@ -107,60 +80,5 @@ public class DMALongEncodedHeperTest {
 
     }
 
-    private static void TestConflictiveNode(FGAFormatHelper jsonHelper) throws JSONException, IOException {
-
-        String line = "[[[1,2,3],[13,12]],40,[[[1,2,3],[13,12],[11]],[[1,2,3],[13,12],[11],[5,2,4]]]]";
-
-
-        JSONArray jsonLine = new JSONArray(line);
-
-        WDPVertexIdWritable wdpVertexIdWritable = jsonHelper.getId(jsonLine);
-        DoubleWritable vertexValueWritable = jsonHelper.getValue(jsonLine);
-        Iterable<Edge<WDPVertexIdWritable, FloatWritable>> edges = jsonHelper.getEdges(jsonLine);
-
-        WDPVertexId wdpVertexId = wdpVertexIdWritable.get();
-        WDPVertexId otherWdpVertexId = new WDPVertexId(new long[][]{{1,2,3},{13,12}});
-        boolean testVertexId = wdpVertexId.equals(otherWdpVertexId);
-        boolean testVertexValue = vertexValueWritable.get() == 40;
-        int count = 0;
-        boolean testEdges;
-        for (Edge<WDPVertexIdWritable, FloatWritable> edge : edges) {
-            count++;
-        }
-        testEdges = count == 1;
-
-        if (testVertexId && testVertexValue && testEdges)
-            System.out.println("test root node successfully passed!");
-        else
-            System.out.println("test root node failed!");
-
-    }
-
-    private static void TestComplexNode(WDPJsonArrayHelper jsonHelper) throws JSONException, IOException {
-
-        String line = "[[1,2],40,[[3,4]]]";
-        JSONArray jsonLine = new JSONArray(line);
-
-        WDPVertexIdWritable wdpVertexIdWritable = jsonHelper.getId(jsonLine);
-        DoubleWritable vertexValueWritable = jsonHelper.getValue(jsonLine);
-        Iterable<Edge<WDPVertexIdWritable, FloatWritable>> edges = jsonHelper.getEdges(jsonLine);
-
-        WDPVertexId wdpVertexId = wdpVertexIdWritable.get();
-        WDPVertexId otherWdpVertexId = new WDPVertexId(new long[][]{{1,2}});
-        boolean testVertexId = wdpVertexId.equals(otherWdpVertexId);
-        boolean testVertexValue = vertexValueWritable.get() == 40;
-        int count = 0;
-        boolean testEdges;
-        for (Edge<WDPVertexIdWritable, FloatWritable> edge : edges) {
-            count++;
-        }
-        testEdges = count == 1;
-
-        if (testVertexId && testVertexValue && testEdges)
-            System.out.println("test root node successfully passed!");
-        else
-            System.out.println("test root node failed!");
-
-    }
 
 }

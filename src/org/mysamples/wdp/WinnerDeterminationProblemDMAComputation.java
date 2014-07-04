@@ -24,8 +24,12 @@ import java.io.IOException;
         name = "Winner Determination Problem using a Dynamic Messages Approach ",
         description = "Computes the maximum revenue for WDP by processing bins one at a time in a top-bottom direction"
 )
-public class WinnerDeterminationProblemDMAComputation<WDPVertexId extends IWDPVertexId,WDPVertexValue extends IWDPVertexValue,WDPMessage extends IWDPMessage> extends BasicComputation<
-     WDPVertexId,WDPVertexValue, NullWritable, WDPMessage> {
+
+public class WinnerDeterminationProblemDMAComputation<WDPVertexId extends IWDPVertexId,
+                                                      WDPVertexValue extends IWDPVertexValue,
+                                                      WDPMessage extends IWDPMessage>
+             extends BasicComputation<WDPVertexId,WDPVertexValue, NullWritable, WDPMessage>
+{
 
     /**
      * Class logger
@@ -48,6 +52,7 @@ public class WinnerDeterminationProblemDMAComputation<WDPVertexId extends IWDPVe
             System.out.println(msg);
         }
     }
+
 
 
     @Override
@@ -83,7 +88,6 @@ public class WinnerDeterminationProblemDMAComputation<WDPVertexId extends IWDPVe
                 }
                 else if(temp==null)
                       RemoveVertex(vertex);
-
             }
         }
     }
